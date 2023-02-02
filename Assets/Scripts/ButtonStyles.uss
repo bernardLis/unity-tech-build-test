@@ -1,0 +1,21 @@
+.button__main {
+    background-image: url('project://database/Assets/Art/Button_long.png?fileID=2800000&guid=d99823617ccce9745953d64d29f0d3d9&type=3#Button_long');
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    width: 150px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.button__main:hover {
+    rotate: 90deg;
+    transition-duration: 0.5s;
+    scale: 1.1 1.1;
+}
+
+.button__main:active {
+    scale: 0.9 0.9;
+    rotate: 180deg;
+}

@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center; flex-direction: row;">
+        <ui:VisualElement name="mainLeftPanel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 30%; height: 100%; font-size: 18px; -unity-font-style: normal; flex-wrap: wrap;">
+            <ui:Label tabindex="-1" text="0" display-tooltip-when-elided="true" name="mainLabel" style="height: 101px; width: 146px; font-size: 48px; -unity-text-align: middle-center; white-space: normal;" />
+            <ui:Label tabindex="-1" text="Basic UI Toolkit functionality." display-tooltip-when-elided="true" name="test1Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Dynamically adding UI Toolkit Elements." display-tooltip-when-elided="true" name="test2Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Dynamically removing UI Toolkit Elements." display-tooltip-when-elided="true" name="test3Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Scriptable object holding sound." display-tooltip-when-elided="true" name="test4Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Database of sounds using scriptable objects." display-tooltip-when-elided="true" name="test5Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Using DoTween to move a game object." display-tooltip-when-elided="true" name="test6Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Using DoTween to move UI Toolkit Elements." display-tooltip-when-elided="true" name="test7Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Coroutines." display-tooltip-when-elided="true" name="test8Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Using Addressables to load styles." display-tooltip-when-elided="true" name="test9Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Save data to file." display-tooltip-when-elided="true" name="test10Label" style="white-space: normal;" />
+            <ui:Label tabindex="-1" text="Async-Await." display-tooltip-when-elided="true" name="test11Label" style="white-space: normal;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="mainRightPanel" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-shrink: 1; width: 70%; height: 100%; align-items: flex-start; justify-content: center; flex-wrap: wrap;">
+            <ui:Button text="Click me" display-tooltip-when-elided="true" name="firstButton" />
+            <ui:Button text="Don&apos;t click me" display-tooltip-when-elided="true" name="secondButton" />
+            <ui:VisualElement name="mask" style="flex-grow: 1; position: absolute; width: 200px; height: 200px; top: 530px; left: 4px; display: flex; visibility: hidden;" />
+            <ui:VisualElement name="target" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; height: 52px; width: 70px; top: 638px; left: 807px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
