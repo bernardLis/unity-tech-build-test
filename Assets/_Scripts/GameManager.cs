@@ -30,6 +30,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public GameDatabase GameDatabase;
 
     IEnumerator _coroutineTest;
+    bool _loadTestFinished;
 
     public event Action OnCorrectClick;
     public event Action OnWrongClick;
@@ -159,32 +160,44 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             Root.Q<Label>("test6Label").style.backgroundColor = Color.green;
             Root.Q<Label>("test7Label").style.unityFontStyleAndWeight = FontStyle.Bold;
-            Keep5Buttons();
         }
         if (Count == 35)
         {
             Root.Q<Label>("test7Label").style.backgroundColor = Color.green;
             Root.Q<Label>("test8Label").style.unityFontStyleAndWeight = FontStyle.Bold;
-            _coroutineTest = CoroutineTest();
-            StartCoroutine(_coroutineTest);
+            Keep5Buttons();
         }
         if (Count == 40)
         {
             Root.Q<Label>("test8Label").style.backgroundColor = Color.green;
             Root.Q<Label>("test9Label").style.unityFontStyleAndWeight = FontStyle.Bold;
+            _coroutineTest = CoroutineTest();
+            StartCoroutine(_coroutineTest);
         }
         if (Count == 45)
         {
             Root.Q<Label>("test9Label").style.backgroundColor = Color.green;
             Root.Q<Label>("test10Label").style.unityFontStyleAndWeight = FontStyle.Bold;
-            SaveTest();
         }
         if (Count == 50)
         {
             Root.Q<Label>("test10Label").style.backgroundColor = Color.green;
             Root.Q<Label>("test11Label").style.unityFontStyleAndWeight = FontStyle.Bold;
+            SaveTest();
+        }
+        if (Count == 55)
+        {
+            Root.Q<Label>("test11Label").style.backgroundColor = Color.green;
+            Root.Q<Label>("test12Label").style.unityFontStyleAndWeight = FontStyle.Bold;
+            LoadTest();
+        }
+        if (Count == 55)
+        {
+            Root.Q<Label>("test12Label").style.backgroundColor = Color.green;
+            Root.Q<Label>("test13Label").style.unityFontStyleAndWeight = FontStyle.Bold;
             AsyncAwaitTest();
         }
+
 
 
         if (Count < 10)
@@ -273,6 +286,7 @@ public class GameManager : PersistentSingleton<GameManager>
             _buttons.Add(b);
             b.style.position = Position.Absolute;
             b.transform.position = _mask.layout.position;
+            b.style.height = 100;
         }
 
         Vector3 endPosition = _target.layout.position;
@@ -319,7 +333,7 @@ public class GameManager : PersistentSingleton<GameManager>
             el.transform.position = result;
 
             percent += 0.01f;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.03f);
         }
         Vector3 endPosition = _target.layout.position;
         yield return MoveObjectOnArc(el, _mask.layout.position, endPosition);
@@ -346,6 +360,32 @@ public class GameManager : PersistentSingleton<GameManager>
             Debug.Log("Save successful");
     }
 
+
+    void LoadTest()
+    {
+        if (_loadTestFinished)
+            return;
+        _loadTestFinished = true;
+
+        LoadJsonData(PlayerPrefs.GetString("saveName"));
+    }
+
+    void LoadJsonData(string fileName)
+    {
+        if (FileManager.LoadFromFile(fileName, out var json))
+        {
+            SaveData sd = new SaveData();
+            sd.LoadFromJson(json);
+            LoadFromSaveData(sd);
+            return;
+        }
+    }
+
+    void LoadFromSaveData(SaveData saveData)
+    {
+        Debug.Log($"Loading from file, count: {Count}");
+        Count = saveData.Count;
+    }
 
     async void AsyncAwaitTest()
     {

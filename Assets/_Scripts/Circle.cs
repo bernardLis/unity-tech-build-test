@@ -17,7 +17,7 @@ public class Circle : MonoBehaviour
     {
         Vector3 endPos = new Vector3(7, -4, 0);
 
-        if (_gameManager.Count == 25)
+        if (_gameManager.Count == 30)
         {
             transform.DOMove(endPos, 2).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutExpo);
             transform.DOScale(Vector3.one, 1.5f).SetLoops(-1, LoopType.Yoyo);

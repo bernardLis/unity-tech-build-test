@@ -10,4 +10,10 @@ public class GameDatabase : BaseScriptableObject
     [SerializeField] Sound[] _correctSounds;
     public Sound GetRandomCorrectSound() { return _correctSounds[Random.Range(0, _correctSounds.Length)]; }
 
+
+    [SerializeField] List<Sprite> AnimationSprites = new();
+    public List<Sprite> GetAllAnimationSprites()
+    {
+        return AnimationSprites;
+    }
 }

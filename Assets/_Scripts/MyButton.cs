@@ -12,6 +12,10 @@ public class MyButton : Button
 
     Label _text;
 
+    IVisualElementScheduledItem _successAnimation;
+    VisualElement _animationContainer;
+    List<Sprite> _animationSprites = new();
+    int _spriteIndex;
     Action _currentCallback;
     public MyButton(string buttonText = null, Action callback = null)
     {
@@ -22,6 +26,16 @@ public class MyButton : Button
         _gameManager = GameManager.Instance;
         _gameManager.OnCorrectClick += OnCorrectClick;
         _gameManager.OnWrongClick += OnWrongClick;
+
+        _animationSprites = _gameManager.GameDatabase.GetAllAnimationSprites();
+
+        _animationContainer = new();
+        Add(_animationContainer);
+        _animationContainer.style.position = Position.Absolute;
+        _animationContainer.style.width = 100;
+        _animationContainer.style.height = 100;
+        _animationContainer.style.visibility = Visibility.Hidden;
+
 
         _text = new Label(buttonText);
         Add(_text);
@@ -59,12 +73,24 @@ public class MyButton : Button
         if (_gameManager.Count >= 20)
             _gameManager.GameDatabase.GetRandomCorrectSound().Play(_gameManager.EffectAudioSource);
 
-        if (_gameManager.Count == 30)
+        if (_gameManager.Count >= 25)
+        {
+            _animationContainer.style.visibility = Visibility.Visible;
+            if (_successAnimation != null)
+            {
+                _spriteIndex = 0;
+                _successAnimation.Resume();
+                return;
+            }
+            _successAnimation = _animationContainer.schedule.Execute(SuccessAnimation).Every(50);
+        }
+
+
+        if (_gameManager.Count == 35)
         {
             style.position = Position.Absolute;
             style.left = Length.Percent(Random.Range(0, 100));
             style.top = Length.Percent(Random.Range(0, 100));
-
 
             int percentLeft = 0;
             if (Random.value > 0.5f)
@@ -72,7 +98,6 @@ public class MyButton : Button
             int percentTop = 0;
             if (Random.value > 0.5f)
                 percentTop = 90;
-
 
             if (Random.value > 0.5f)
                 DOTween.To(() => style.left.value.value,
@@ -86,14 +111,24 @@ public class MyButton : Button
             DOTween.To(x => transform.scale = x * Vector3.one, 1, 2, Random.Range(1.5f, 3.5f));
         }
 
-        if (_gameManager.Count == 40)
+        if (_gameManager.Count == 45)
         {
-
             RemoveFromClassList("unity-button");
             AddToClassList("button__main");
         }
+    }
 
+    void SuccessAnimation()
+    {
+        if (_spriteIndex == _animationSprites.Count)
+        {
+            _successAnimation.Pause();
+            _animationContainer.style.visibility = Visibility.Hidden;
+            return;
+        }
 
+        _animationContainer.style.backgroundImage = new StyleBackground(_animationSprites[_spriteIndex]);
+        _spriteIndex++;
     }
 
     void OnWrongClick()
